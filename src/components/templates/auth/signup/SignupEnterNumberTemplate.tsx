@@ -12,7 +12,7 @@ import Toast from "react-native-root-toast";
 const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 	const { theme } = React.useContext(ThemeContext);
 	const [countryCode, setCountryCode] = React.useState<CountryCode>("US");
-	const [phoneNumber, setPhoneNumber] = React.useState<string>("");
+	const [phoneNumber, setPhoneNumber] = React.useState<string>("+2348111994693");
 	const [error, setError] = React.useState<string>("");
 	const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -24,6 +24,7 @@ const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 		if (isValidNumber(phoneNumber, countryCode)) {
 			// Short delay before navigating
 			setTimeout(() => {
+				setLoading(false);
 				navigation.navigate("OtpScreen", { phoneNumber });
 			}, 2000);
 		} else if (phoneNumber.split("+")[1] === "") {
@@ -63,6 +64,7 @@ const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 				countryCode={countryCode}
 				setPhoneNumber={setPhoneNumber}
 				selectCountry={selectCountry}
+				phoneNumber={phoneNumber}
 				containerStyle={[tw`mb-6 border px-3 py-2 border-[#E8E6EA] rounded-xl`]}
 			/>
 			<PrimaryButton

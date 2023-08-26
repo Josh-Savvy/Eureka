@@ -1,17 +1,9 @@
-import React, { useContext, useEffect, useRef } from "react";
-import {
-	Animated,
-	Pressable,
-	SafeAreaView,
-	Switch,
-	Text,
-	TouchableOpacity,
-	View,
-} from "react-native";
+import React, { useContext } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 import ThemeContext from "../../../context/theme.context";
 import { curentTheme } from "../../../constants/theme.constant";
-import * as Icons from "../atoms/icons";
+import IonIcons from "@expo/vector-icons/Ionicons";
 import AuthContext from "../../../context/auth.context";
 
 const InnerScreen = ({
@@ -33,10 +25,33 @@ const InnerScreen = ({
 	return (
 		<View
 			style={[
-				tw`pt-13 px-4 relative`,
+				tw`pt-13 px-5 relative`,
 				{ flex: 1, backgroundColor: curentTheme(theme).background },
 			]}
 		>
+			<View
+				style={[
+					{
+						alignContent: "flex-start",
+						justifyContent: "flex-start",
+						alignItems: "flex-start",
+						position: "relative",
+					},
+				]}
+			>
+				<TouchableOpacity
+					style={[tw`bg-white rounded-xl shadow shadow-lg border-zinc-300 p-2 px-3 items-center my-5`]}
+					onPress={() => {
+						navigation.goBack();
+					}}
+				>
+					<IonIcons
+						size={30}
+						name="chevron-back-sharp"
+						color={curentTheme(theme).primary}
+					/>
+				</TouchableOpacity>
+			</View>
 			{/* <Sidebar /> */}
 			<View
 				style={{
@@ -47,44 +62,7 @@ const InnerScreen = ({
 					alignItems: "center",
 					alignContent: "center",
 				}}
-			>
-				{isLoggedIn ? (
-					leftIcon ? (
-						leftIcon
-					) : (
-						<Icons.MenuHamburgerIcon
-							onPress={() => {
-								console.log("Hamburger Pressed");
-								// navigation.openDrawer();
-							}}
-							height={45}
-							width={45}
-						/>
-					)
-				) : (
-					<></>
-				)}
-				<Text
-					style={[
-						tw`text-2xl uppercase text-center font-semibold`,
-						{
-							color: curentTheme(theme).text,
-						},
-					]}
-				>
-					{screenTitle}
-				</Text>
-				<View
-					style={{
-						display: "flex",
-						gap: 6,
-						flexDirection: "row",
-						justifyContent: "flex-end",
-					}}
-				>
-					{rightIcon ? rightIcon : <></>}
-				</View>
-			</View>
+			></View>
 			<View style={[tw`mt-4`]}>{children}</View>
 		</View>
 	);

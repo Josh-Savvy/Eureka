@@ -17,7 +17,7 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
 				style={[
 					tw`text-2xl uppercase text-center mt-10 font-semibold`,
 					{
-						color: curentTheme(theme).text_primary,
+						color: curentTheme(theme).text,
 					},
 				]}
 			>
@@ -48,14 +48,14 @@ const LoginForm = ({ navigation }: { navigation: any }) => {
 			>
 				<Text
 					style={{
-						color: curentTheme(theme).text_primary,
+						color: curentTheme(theme).text,
 					}}
 				>
 					Forgot Password?
 				</Text>
 				<Text
 					style={{
-						color: curentTheme(theme).text_primary,
+						color: curentTheme(theme).text,
 					}}
 				>
 					Forgot Password?

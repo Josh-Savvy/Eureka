@@ -1,4 +1,5 @@
-import React from "react";
+import { RouteProp } from "@react-navigation/native";
+import React, { SetStateAction } from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { TextInputProps } from "react-native";
 
@@ -9,4 +10,11 @@ export interface CustomInputPropsType extends TextInputProps {
 	iconStyle?: StyleProp<ViewStyle>;
 	leftIcon?: React.ReactNode;
 	rightIcon?: React.ReactNode;
+}
+export interface CustomOTPInputProps {
+	pinCount: number;
+	countdownLimit?: number;
+	navigation: any;
+	placeholder?: string;
+	route: RouteProp<Record<string, { phoneNumber: string }>, string>;
 }

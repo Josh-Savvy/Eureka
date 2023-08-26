@@ -84,11 +84,13 @@ export const CustomPhoneNumberInput = ({
 	countryCode,
 	setPhoneNumber,
 	selectCountry,
+	phoneNumber,
 }: {
 	containerStyle?: ViewStyle;
 	countryCode: any;
 	setPhoneNumber: any;
 	selectCountry: any;
+	phoneNumber: string;
 }) => {
 	const phoneRef = React.useRef<ReactNativePhoneInput>(null);
 
@@ -123,6 +125,7 @@ export const CustomPhoneNumberInput = ({
 				}}
 				onChangePhoneNumber={(number) => setPhoneNumber(number)}
 				flagStyle={{ display: "none" }}
+				initialValue={phoneNumber}
 			/>
 		</View>
 	);
