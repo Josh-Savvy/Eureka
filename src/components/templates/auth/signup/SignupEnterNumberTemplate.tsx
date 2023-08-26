@@ -1,21 +1,48 @@
 import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import tw from "twrnc";
-import Icons from "../../../ui/atoms/icons";
 import { curentTheme } from "../../../../constants/theme.constant";
 import { PrimaryButton } from "../../../ui/atoms/buttons";
 import ThemeContext from "../../../../context/theme.context";
-import { CustomInput, CustomPhoneNumberInput } from "../../../ui/atoms/inputs";
+import { CustomPhoneNumberInput } from "../../../ui/atoms/inputs";
 import { CountryCode } from "react-native-country-picker-modal";
+import { isValidNumber } from "react-native-phone-number-input";
+import Toast from "react-native-root-toast";
 
 const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 	const { theme } = React.useContext(ThemeContext);
 	const [countryCode, setCountryCode] = React.useState<CountryCode>("US");
 	const [phoneNumber, setPhoneNumber] = React.useState<string>("");
+	const [error, setError] = React.useState<string>("");
+	const [loading, setLoading] = React.useState<boolean>(false);
 
 	const selectCountry = (country: any) => {
 		setCountryCode(country.cca2);
 	};
+	const handleNavigate = () => {
+		setLoading(true);
+		if (isValidNumber(phoneNumber, countryCode)) {
+			// Short delay before navigating
+			setTimeout(() => {
+				navigation.navigate("OtpScreen", { phoneNumber });
+			}, 2000);
+		} else if (phoneNumber.split("+")[1] === "") {
+			setError("Please enter your phone number");
+			setLoading(false);
+			return;
+		} else {
+			setLoading(false);
+			setError("Invalid phone number");
+			return;
+		}
+	};
+
+	React.useEffect(() => {
+		if (error) {
+			setError("");
+		}
+	}, [phoneNumber]);
+
 	return (
 		<View
 			style={[tw`mx-5`, { marginTop: Dimensions.get("window").height * 0.1 }]}
@@ -31,29 +58,16 @@ const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 					verify your account.
 				</Text>
 			</View>
-			{/* <CustomInput
-				leftIcon={
-					<View
-						style={[tw`border-r border-zinc-300 py-2 px-4`, { flexDirection: "row" }]}
-					>
-						<Text style={[tw``]}>Hell</Text>
-						<Text style={[tw`pl-3`]}>Hell</Text>
-					</View>
-				}
-				style={[tw`flex-grow`, {}]}
-				containerStyle={[tw`mt-5 rounded-lg`]}
-			/> */}
+			<Text style={[tw`text-red-600 mt-5 mb-2 text-[4]`]}>{error}</Text>
 			<CustomPhoneNumberInput
 				countryCode={countryCode}
 				setPhoneNumber={setPhoneNumber}
 				selectCountry={selectCountry}
-				containerStyle={[tw`my-6 border px-3 py-2 border-[#E8E6EA] rounded-xl`]}
+				containerStyle={[tw`mb-6 border px-3 py-2 border-[#E8E6EA] rounded-xl`]}
 			/>
 			<PrimaryButton
-				onPress={() => {
-					navigation.navigate("Signup");
-				}}
-				buttonText="Continue"
+				onPress={handleNavigate}
+				buttonText={loading ? "Please wait..." : "Continue"}
 				buttonContainerStyle={[
 					tw`rounded-lg py-4`,
 					{

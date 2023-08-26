@@ -19,6 +19,7 @@ import { curentTheme } from "../constants/theme.constant";
 import OnboardingScreen from "../screens/onboading";
 import Signup from "../screens/auth/signup";
 import SignupEnterNumberScreen from "../screens/auth/signup/EnterNumber";
+import OtpScreen from "../screens/auth/otp/OtpScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -54,7 +55,7 @@ const Navigation = () => {
 				</Stack.Navigator>
 			) : (
 				<Stack.Navigator
-					initialRouteName="SignupEnterNumberScreen"
+					initialRouteName="OtpScreen"
 					screenOptions={{
 						presentation: "card",
 						headerShown: false,
@@ -76,6 +77,7 @@ const Navigation = () => {
 						}}
 						component={SignupEnterNumberScreen}
 					/>
+					<Stack.Screen name="OtpScreen" component={OtpScreen} />
 					<Stack.Screen name="Login" component={Login} />
 				</Stack.Navigator>
 			)}
