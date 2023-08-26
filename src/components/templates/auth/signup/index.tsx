@@ -1,12 +1,12 @@
 import React from "react";
 import { Dimensions, Text, View } from "react-native";
-import Icons from "../../../ui/atoms/icons";
 import tw from "twrnc";
-import { PrimaryButton } from "../../../ui/atoms/buttons";
+import { PrimaryButton } from "../../../ui/atoms/common/buttons";
 import { curentTheme } from "../../../../constants/theme.constant";
 import ThemeContext from "../../../../context/theme.context";
 import IonIcons from "@expo/vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
+import Icons from "../../../ui/atoms/common/icons";
 
 const SignupTemplate = ({ navigation }: { navigation: any }) => {
 	const { theme } = React.useContext(ThemeContext);

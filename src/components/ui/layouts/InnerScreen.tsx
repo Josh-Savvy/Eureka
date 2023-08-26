@@ -12,12 +12,14 @@ const InnerScreen = ({
 	leftIcon,
 	rightIcon,
 	navigation,
+	hideBackIcon = false,
 }: {
 	children: any;
 	screenTitle?: string;
 	navigation: any;
 	leftIcon?: React.ReactNode;
 	rightIcon?: React.ReactNode;
+	hideBackIcon?: boolean;
 }) => {
 	const { theme } = useContext(ThemeContext);
 	const { isLoggedIn } = React.useContext(AuthContext);
@@ -29,29 +31,35 @@ const InnerScreen = ({
 				{ flex: 1, backgroundColor: curentTheme(theme).background },
 			]}
 		>
-			<View
-				style={[
-					{
-						alignContent: "flex-start",
-						justifyContent: "flex-start",
-						alignItems: "flex-start",
-						position: "relative",
-					},
-				]}
-			>
-				<TouchableOpacity
-					style={[tw`bg-white rounded-xl shadow shadow-lg border-zinc-300 p-2 px-3 items-center my-5`]}
-					onPress={() => {
-						navigation.goBack();
-					}}
+			{!hideBackIcon ? (
+				<View
+					style={[
+						{
+							alignContent: "flex-start",
+							justifyContent: "flex-start",
+							alignItems: "flex-start",
+							position: "relative",
+						},
+					]}
 				>
-					<IonIcons
-						size={30}
-						name="chevron-back-sharp"
-						color={curentTheme(theme).primary}
-					/>
-				</TouchableOpacity>
-			</View>
+					<TouchableOpacity
+						style={[
+							tw`bg-white rounded-xl shadow shadow-lg border-zinc-300 p-2 px-3 items-center`,
+						]}
+						onPress={() => {
+							navigation.goBack();
+						}}
+					>
+						<IonIcons
+							size={30}
+							name="chevron-back-sharp"
+							color={curentTheme(theme).primary}
+						/>
+					</TouchableOpacity>
+				</View>
+			) : (
+				<></>
+			)}
 			{/* <Sidebar /> */}
 			<View
 				style={{
@@ -63,7 +71,7 @@ const InnerScreen = ({
 					alignContent: "center",
 				}}
 			></View>
-			<View style={[tw`mt-4`]}>{children}</View>
+			<View>{children}</View>
 		</View>
 	);
 };

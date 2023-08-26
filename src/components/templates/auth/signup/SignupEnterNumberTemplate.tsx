@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, Dimensions } from "react-native";
 import tw from "twrnc";
 import { curentTheme } from "../../../../constants/theme.constant";
-import { PrimaryButton } from "../../../ui/atoms/buttons";
+import { PrimaryButton } from "../../../ui/atoms/common/buttons";
 import ThemeContext from "../../../../context/theme.context";
-import { CustomPhoneNumberInput } from "../../../ui/atoms/inputs";
 import { CountryCode } from "react-native-country-picker-modal";
 import { isValidNumber } from "react-native-phone-number-input";
 import Toast from "react-native-root-toast";
+import { CustomPhoneNumberInput } from "../../../ui/atoms/common/inputs";
 
 const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 	const { theme } = React.useContext(ThemeContext);
@@ -25,7 +25,7 @@ const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 			// Short delay before navigating
 			setTimeout(() => {
 				setLoading(false);
-				navigation.navigate("OtpScreen", { phoneNumber });
+				navigation.navigate("SignupOtpScreen", { phoneNumber });
 			}, 2000);
 		} else if (phoneNumber.split("+")[1] === "") {
 			setError("Please enter your phone number");
@@ -50,7 +50,7 @@ const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
 		>
 			<View style={[tw`mt-20`]}>
 				<Text style={tw`text-left tracking-tight font-bold text-3xl`}>
-					My mobile
+					Phone Number
 				</Text>
 				<Text
 					style={tw`text-left tracking-tight text-zinc-500 mt-2 text-lg leading-[1.2]`}

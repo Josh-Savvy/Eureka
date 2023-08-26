@@ -9,6 +9,7 @@ const HomeScreenTemplate = ({ navigation }: { navigation: any }) => {
 
 	return (
 		<InnerScreen
+			hideBackIcon
 			navigation={navigation}
 			rightIcon={
 				<View

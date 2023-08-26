@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import { PrimaryButtonProps } from "../../../../interfaces/button.type";
+import { PrimaryButtonProps } from "../../../../../interfaces/button.type";
 import tw from "twrnc";
 import { TouchableOpacity } from "react-native";
 

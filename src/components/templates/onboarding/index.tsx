@@ -14,7 +14,7 @@ import ThemeContext from "../../../context/theme.context";
 import { curentTheme } from "../../../constants/theme.constant";
 import tw from "twrnc";
 import onboardingScreenSlides from "./slides";
-import { PrimaryButton } from "../../ui/atoms/buttons";
+import { PrimaryButton } from "../../ui/atoms/common/buttons";
 import { NativeScrollEvent } from "react-native";
 import SlideComponent from "./SlideComponent";
 
@@ -100,8 +100,22 @@ const OnboardingScreenTemplate = ({ navigation }: { navigation: any }) => {
 					width={"80%"}
 					buttonTextStyle={tw`text-lg tracking-tight`}
 				/>
-				<View>
-					<Text>Login</Text>
+				<View
+					style={[
+						{ alignItems: "center", gap: 5, display: "flex", flexDirection: "row" },
+					]}
+				>
+					<Text style={[tw`text-lg`]}>Already have an account?</Text>
+					<TouchableOpacity onPress={() => navigation.navigate("Login")}>
+						<Text
+							style={[
+								tw`font-semibold text-lg`,
+								{ color: curentTheme(theme).primary },
+							]}
+						>
+							Sign In
+						</Text>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>

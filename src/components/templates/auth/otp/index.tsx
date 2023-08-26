@@ -12,16 +12,16 @@ const OtpScreenTemplate = ({
 	navigation,
 	route,
 	pinCount = 4,
-	placeholder = "0",
-	countdownLimit = 2,
+	placeholder = "-",
+	countdownLimit = 5,
+	next,
 }: CustomOTPInputProps) => {
 	const { theme } = React.useContext(ThemeContext);
-	const phoneNumber = route?.params?.phoneNumber || "";
-	// console.log(phoneNumber);
 	const [countdown, setCountdown] = React.useState<number>(countdownLimit);
 	const [error, setError] = React.useState<string>("");
 	const [otpValue, setOtpValue] = React.useState<string>("");
-	const [currentIndex, setCurrentIndex] = React.useState<number>(0);
+	const [currentIndex, setCurrentIndex] = React.useState<number>(-1);
+	const [loading, setLoading] = React.useState<boolean>(false);
 
 	const inputRefs: any[] = Array.from({ length: pinCount }, () =>
 		React.useRef(),
@@ -30,6 +30,8 @@ const OtpScreenTemplate = ({
 	const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 	const onPressNumber = (number: number) => {
+		setError("");
+		setLoading(false);
 		if (currentIndex < pinCount) {
 			if (otpValue.length < pinCount) {
 				setOtpValue((prev: string) => prev.concat(number.toString()));
@@ -41,6 +43,8 @@ const OtpScreenTemplate = ({
 	};
 
 	const onPressDelete = () => {
+		setError("");
+		setLoading(false);
 		if (currentIndex > -1) {
 			setOtpValue((prev: string) => prev.slice(0, -1));
 			setCurrentIndex(currentIndex - 1);
@@ -48,7 +52,15 @@ const OtpScreenTemplate = ({
 	};
 
 	React.useEffect(() => {
-		console.log(otpValue);
+		if (otpValue.trim().length === 4) {
+			setLoading(true);
+			console.log(otpValue);
+			// ! If otp is valid, then:
+			next();
+		}
+		// else {
+		// 	setError("Invalid OTP!");
+		// }
 	}, [otpValue]);
 
 	React.useEffect(() => {
@@ -61,13 +73,25 @@ const OtpScreenTemplate = ({
 			};
 		}
 	}, [countdown]);
+
 	return (
 		<InnerScreen navigation={navigation}>
-			<View style={[tw`items-center`]}>
-				<Text>OtpScreenTemplate</Text>
+			<View style={[tw`items-center mt-6`]}>
+				<Text style={[tw`text-[12] font-semibold`, { color: "#111" }]}>
+					{`${Math.floor(countdown / 60)
+						.toString()
+						.padStart(2, "0")}:${(countdown % 60).toString().padStart(2, "0")}`}
+				</Text>
+				<Text
+					style={[
+						tw`font-light tracking-tight text-center text-zinc-400 text-[6] mt-3`,
+					]}
+				>
+					Enter the verification code {"\n"} we sent to you
+				</Text>
 				<View
 					style={[
-						tw`my-10`,
+						tw`my-6`,
 						{
 							display: "flex",
 							flexDirection: "row",
@@ -82,7 +106,7 @@ const OtpScreenTemplate = ({
 							key={index}
 							ref={(ref) => (inputRefs[index].current = ref)}
 							style={[
-								tw`h-16 w-16 text-center border rounded-xl font-medium text-[10] overflow-hidden`,
+								tw`h-16 w-16 text-center border rounded-xl items-center pt-2.5 font-medium text-[10] overflow-hidden`,
 								{
 									backgroundColor:
 										index === currentIndex
@@ -97,45 +121,35 @@ const OtpScreenTemplate = ({
 									color:
 										index === currentIndex
 											? "white"
+											: currentIndex + 1 === index
+											? "#d311195a"
 											: otpValue.charAt(index)
 											? "white"
-											: curentTheme(theme).primary,
+											: "#ddd",
 								},
 							]}
 							onPress={() => setCurrentIndex(index)}
-							children={otpValue.charAt(index)}
+							children={otpValue.charAt(index) || placeholder}
 						/>
 					))}
 				</View>
-				<TouchableOpacity
-					onPress={() => {
-						setCountdown(countdownLimit);
-					}}
-					disabled={countdown > 0 ? true : false}
-				>
-					{countdown > 0 ? (
-						<Text
-							style={{
-								fontSize: 25,
-								color: "#aaa",
-							}}
-						>
-							{countdown}
-						</Text>
-					) : (
+				<View>
+					{error ? (
 						<Text
 							style={[
 								tw`tracking-tight text-xl`,
 								{
-									color: curentTheme(theme).primary,
+									color: "red",
 								},
 							]}
 						>
-							Send again
+							{error}
 						</Text>
+					) : (
+						<></>
 					)}
-				</TouchableOpacity>
-				<View style={[tw`flex-row flex-wrap py-6 justify-between`]}>
+				</View>
+				<View style={[tw`flex-row flex-wrap py-2 justify-between`]}>
 					{numbers.map((number) => (
 						<TouchableOpacity
 							key={number}
@@ -159,45 +173,32 @@ const OtpScreenTemplate = ({
 						>
 							<Text style={[tw`text-[8]`]}>{0}</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={[tw``]} onPress={() => onPressDelete(4)}>
+						<TouchableOpacity style={[tw``]} onPress={onPressDelete}>
 							{/* <Text style={[]}>Delete</Text> */}
 							<Ionicons name="backspace-outline" size={34} />
 						</TouchableOpacity>
 					</View>
 				</View>
+				<TouchableOpacity
+					onPress={() => {
+						if (otpValue.length !== 4) if (!loading) setCountdown(countdownLimit);
+					}}
+					disabled={countdown > 0 ? true : loading ? true : false}
+					style={[tw`mt-20`]}
+				>
+					<Text
+						style={[
+							tw`tracking-tight text-xl font-semibold`,
+							{
+								color: countdown > 0 ? "#ccc" : curentTheme(theme).primary,
+							},
+						]}
+					>
+						{!loading ? "Send again" : "Please wait..."}
+					</Text>
+				</TouchableOpacity>
 			</View>
 		</InnerScreen>
 	);
 };
-// const styles = StyleSheet.create({
-// 	row: {
-// 		flexDirection: "row",
-// 		flexWrap: "wrap",
-// 	},
-// 	numberButton: {
-// 		width: 80,
-// 		height: 70,
-// 		justifyContent: "center",
-// 		alignItems: "center",
-// 		margin: 5,
-// 		backgroundColor: "#ddd",
-// 		borderRadius: 10,
-// 	},
-// 	numberText: {
-// 		fontSize: 24,
-// 	},
-// 	deleteButton: {
-// 		width: 140,
-// 		height: 50,
-// 		marginTop: 10,
-// 		backgroundColor: "red",
-// 		justifyContent: "center",
-// 		alignItems: "center",
-// 		borderRadius: 10,
-// 	},
-// 	deleteText: {
-// 		color: "white",
-// 		fontSize: 18,
-// 	},
-// });
 export default OtpScreenTemplate;

@@ -20,7 +20,8 @@ export type RootStackParamList = {
 	Signup: undefined;
 	Onboarding: undefined;
 	SignupEnterNumberScreen: undefined;
-	OtpScreen: undefined;
+	SignupOtpScreen: undefined;
+	OnboardingEditProfile: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

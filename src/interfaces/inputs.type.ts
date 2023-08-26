@@ -16,5 +16,6 @@ export interface CustomOTPInputProps {
 	countdownLimit?: number;
 	navigation: any;
 	placeholder?: string;
-	route: RouteProp<Record<string, { phoneNumber: string }>, string>;
+	next: any;
+	route?: RouteProp<Record<string, { phoneNumber: string }>, string>;
 }

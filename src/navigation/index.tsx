@@ -6,11 +6,6 @@ import HomeScreen from "../screens/home";
 import Dashboard from "../screens/profile/Dashboard";
 import { Path, Svg } from "react-native-svg";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {
-	HomeIconPath,
-	UserIconPath,
-	UserSecondIconPath,
-} from "../components/ui/atoms/icons/svgs";
 import { RootStackParamList, RootTabScreenProps } from "../interfaces";
 import Login from "../screens/auth/Login";
 import AuthContext from "../context/auth.context";
@@ -19,7 +14,13 @@ import { curentTheme } from "../constants/theme.constant";
 import OnboardingScreen from "../screens/onboading";
 import Signup from "../screens/auth/signup";
 import SignupEnterNumberScreen from "../screens/auth/signup/EnterNumber";
-import OtpScreen from "../screens/auth/otp/OtpScreen";
+import SignupOtpScreen from "../screens/auth/otp/SignupOtpScreen";
+import OnboardingEditProfile from "../screens/onboading/profile/OnboardingEditProfile";
+import {
+	HomeIconPath,
+	UserIconPath,
+	UserSecondIconPath,
+} from "../components/ui/atoms/common/icons/svgs";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -55,7 +56,7 @@ const Navigation = () => {
 				</Stack.Navigator>
 			) : (
 				<Stack.Navigator
-					initialRouteName="Onboarding"
+					initialRouteName="OnboardingEditProfile"
 					screenOptions={{
 						presentation: "card",
 						headerShown: false,
@@ -65,9 +66,9 @@ const Navigation = () => {
 					<Stack.Screen name="Onboarding" component={OnboardingScreen} />
 					<Stack.Screen
 						name="Signup"
-						options={{
-							gestureEnabled: false,
-						}}
+						// options={{
+						// 	gestureEnabled: false,
+						// }}
 						component={Signup}
 					/>
 					<Stack.Screen
@@ -77,7 +78,14 @@ const Navigation = () => {
 						}}
 						component={SignupEnterNumberScreen}
 					/>
-					<Stack.Screen name="OtpScreen" component={OtpScreen} />
+					<Stack.Screen name="SignupOtpScreen" component={SignupOtpScreen} />
+					<Stack.Screen
+						name="OnboardingEditProfile"
+						options={{
+							gestureEnabled: false,
+						}}
+						component={OnboardingEditProfile}
+					/>
 					<Stack.Screen name="Login" component={Login} />
 				</Stack.Navigator>
 			)}

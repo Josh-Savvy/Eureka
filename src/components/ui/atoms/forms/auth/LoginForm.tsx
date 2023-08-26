@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, TextInput, View } from "react-native";
 import tw from "twrnc";
-import { CustomInput } from "../../inputs";
-import { PrimaryButton } from "../../buttons";
+import { PrimaryButton } from "../../common/buttons";
 import AuthContext from "../../../../../context/auth.context";
 import ThemeContext from "../../../../../context/theme.context";
 import { curentTheme } from "../../../../../constants/theme.constant";
+import { CustomInput } from "../../common/inputs";
 
 const LoginForm = ({ navigation }: { navigation: any }) => {
 	const { setIsLoggedIn } = React.useContext(AuthContext);
