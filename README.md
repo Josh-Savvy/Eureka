@@ -1,4 +1,5 @@
-# Giggle
+# Eureka
+
 A simple dating app built on react native.
 
 <code>cd existing_repo</code>
