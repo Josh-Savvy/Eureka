@@ -1,3 +1,4 @@
+import { GestureResponderEvent } from "react-native";
 import { ViewStyle } from "react-native-phone-input";
 
 export interface CustomModalProps {

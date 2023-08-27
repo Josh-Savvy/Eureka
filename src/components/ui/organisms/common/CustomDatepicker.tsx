@@ -49,12 +49,18 @@ const CustomDatepicker = ({
 	const currentYear = currentDate.getFullYear();
 	const currentMonth = currentDate.getMonth();
 
-	const [currentYearIndex, setCurrentYearIndex] = useState(currentYear);
-	const [currentMonthIndex, setCurrentMonthIndex] = useState(currentMonth);
+	const [currentYearIndex, setCurrentYearIndex] = useState<number>(
+		initialState.selectedYear || currentYear,
+	);
+	const [currentMonthIndex, setCurrentMonthIndex] = useState<number>(
+		months.indexOf(initialState.selectedMonth) || currentMonth,
+	);
+	const [selectedDay, setSelectedDay] = useState<number>(
+		initialState.selectedDay || 1,
+	);
 	const [yearArray, setYearArray] = useState<number[]>([]);
 	const [showYear, setShowYear] = useState<boolean>(false);
 	const [showMonth, setShowMonth] = useState<boolean>(false);
-	const [selectedDay, setSelectedDay] = useState<number>(1);
 
 	useEffect(() => {
 		const years = [];
@@ -95,6 +101,7 @@ const CustomDatepicker = ({
 			selectedDay: selectedDay,
 		};
 		updateState(updatedState);
+		return () => updateState(initialState);
 	}, [currentMonthIndex, currentYearIndex, selectedDay]);
 
 	return (
@@ -147,7 +154,7 @@ const CustomDatepicker = ({
 				</TouchableOpacity>
 			</View>
 			<ScrollView
-				style={{ marginTop: showYear ? 30 : 0 }}
+				style={{ marginTop: showYear ? 30 : 0, zIndex: 30, position: "relative" }}
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}
 				horizontal

@@ -7,6 +7,8 @@ import {
 	Image,
 	ScrollView,
 	KeyboardAvoidingView,
+	GestureResponderEvent,
+	Dimensions,
 } from "react-native";
 import tw from "twrnc";
 import ThemeContext from "../../../../context/theme.context";
@@ -16,6 +18,8 @@ import * as ImagePicker from "expo-image-picker";
 import { CustomInputTwo } from "../../../ui/atoms/common/inputs";
 import { PrimaryButton } from "../../../ui/atoms/common/buttons";
 import CalendarModal from "../../../ui/atoms/modals/CalendarModal";
+import { CustomDatePickerType } from "../../../ui/organisms/common/CustomDatepicker";
+import Toast from "react-native-root-toast";
 
 const OnboardingEditProfileTemplate = ({
 	navigation,
@@ -25,6 +29,7 @@ const OnboardingEditProfileTemplate = ({
 	route: any;
 }) => {
 	const { theme } = React.useContext(ThemeContext);
+	const ageLimit = 18;
 	const initialState = {
 		email: "",
 		phone: "+2348111994693",
@@ -36,7 +41,6 @@ const OnboardingEditProfileTemplate = ({
 	const [state, setState] = React.useState<typeof initialState>(initialState);
 	const { email, first_name, image, last_name, phone, DOB } = state;
 	const [openDateModal, setOpenDateModal] = React.useState<boolean>(!false);
-
 	const handleImageUpload = async () => {
 		const permissionResult =
 			await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -52,7 +56,39 @@ const OnboardingEditProfileTemplate = ({
 	const handleChange = (name: keyof typeof initialState) => (text: string) => {
 		setState({ ...state, [name]: text });
 	};
+	const updateDOB = (calendarState: CustomDatePickerType) => {
+		// console.log(calendarState);
+		if (
+			calendarState.selectedYear >= new Date().getFullYear() ||
+			calendarState.selectedYear <= new Date().getFullYear() - ageLimit
+		) {
+			Toast.show(`Not available for persons below ${ageLimit}`, {
+				position: Toast.positions.TOP,
+				shadow: !true,
+				animation: true,
+				hideOnPress: true,
+				delay: 0,
+				duration: Toast.durations.LONG,
+				backgroundColor: "#d31119",
+				containerStyle: {
+					width: Dimensions.get("window").width * 0.95,
+					padding: 20,
+				},
+			});
+			return;
+		}
+		// !
+		console.log(true);
 
+		// if (
+		// 	calendarState &&
+		// 	calendarState.selectedDay !== initialState.selectedDay &&
+		// 	calendarState.selectedMonth !== initialState.selectedMonth &&
+		// 	calendarState.selectedYear !== initialState.selectedYear
+		// )
+		// 	return false;
+		// return true;
+	};
 	return (
 		<>
 			<InnerScreen navigation={navigation} hideBackIcon>
@@ -181,6 +217,7 @@ const OnboardingEditProfileTemplate = ({
 				<CalendarModal
 					closeModal={() => setOpenDateModal(false)}
 					modalIsOpen={openDateModal}
+					handleSaveDate={updateDOB}
 				/>
 			) : (
 				<></>

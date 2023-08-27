@@ -6,7 +6,6 @@ import { PrimaryButton } from "../../../ui/atoms/common/buttons";
 import ThemeContext from "../../../../context/theme.context";
 import { CountryCode } from "react-native-country-picker-modal";
 import { isValidNumber } from "react-native-phone-number-input";
-import Toast from "react-native-root-toast";
 import { CustomPhoneNumberInput } from "../../../ui/atoms/common/inputs";
 
 const SignupEnterNumberTemplate = ({ navigation }: { navigation: any }) => {
