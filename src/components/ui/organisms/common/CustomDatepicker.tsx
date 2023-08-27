@@ -1,5 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import React, { useRef, useState, useEffect } from "react";
+import React, {
+	useRef,
+	useState,
+	useEffect,
+	Dispatch,
+	SetStateAction,
+} from "react";
 import {
 	View,
 	Text,
@@ -9,35 +15,39 @@ import {
 } from "react-native";
 import tw from "twrnc";
 
+export interface CustomDatePickerType {
+	selectedYear: number;
+	selectedMonth: string;
+	selectedDay: number;
+}
+export const months = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const CustomDatepicker = ({
-	calendarState,
 	initialState,
 	updateState,
 	title,
 }: {
-	calendarState: any;
-	initialState: any;
-	updateState: any;
+	initialState: CustomDatePickerType;
+	updateState: Dispatch<SetStateAction<CustomDatePickerType>>;
 	title?: string;
 }) => {
 	const currentDate = new Date();
 	const currentYear = currentDate.getFullYear();
 	const currentMonth = currentDate.getMonth();
-	const months = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
-	const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 	const [currentYearIndex, setCurrentYearIndex] = useState(currentYear);
 	const [currentMonthIndex, setCurrentMonthIndex] = useState(currentMonth);
@@ -79,24 +89,12 @@ const CustomDatepicker = ({
 	};
 
 	useEffect(() => {
-		if (currentMonth !== currentMonthIndex)
-			updateState({
-				...calendarState,
-				selectedDate: 0,
-				selectedDay: "",
-				selectedMonth: 0,
-			});
-		else {
-			updateState(initialState);
-		}
-	}, [currentMonthIndex]);
-
-	useEffect(() => {
-		console.log({
-			currentMonthIndex: currentMonthIndex,
-			currentYearIndex: currentMonthIndex,
-			selectedDay: currentMonthIndex,
-		});
+		const updatedState: CustomDatePickerType = {
+			selectedYear: currentYearIndex,
+			selectedMonth: months[currentMonthIndex],
+			selectedDay: selectedDay,
+		};
+		updateState(updatedState);
 	}, [currentMonthIndex, currentYearIndex, selectedDay]);
 
 	return (
@@ -216,12 +214,6 @@ const CustomDatepicker = ({
 								onPress={() => {
 									setCurrentMonthIndex(monthIndex);
 									setShowMonth(false);
-									updateState({
-										...calendarState,
-										selectedDate: 0,
-										selectedDay: "",
-										selectedMonth: monthIndex,
-									});
 								}}
 							>
 								<Text
@@ -260,11 +252,6 @@ const CustomDatepicker = ({
 										}}
 										onPress={() => {
 											setSelectedDay(day);
-											updateState({
-												...calendarState,
-												selectedDate: day,
-												selectedDay: weekday[index],
-											});
 										}}
 									>
 										<Text
