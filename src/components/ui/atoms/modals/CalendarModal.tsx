@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 import CustomModal from "./CustomModal";
 import tailwind from "twrnc";
+import CustomDatepicker from "../../organisms/common/CustomDatepicker";
 
 export const CalendarModal = ({
 	closeModal,
@@ -23,7 +24,13 @@ export const CalendarModal = ({
 			hideScroll
 			acceptBtnStyle={[tailwind`py-5 rounded-xl`]}
 		>
-			<Text>Hello</Text>
+			{/* <Text>Hello</Text> */}
+			<CustomDatepicker
+				calendarState={""}
+				initialState={""}
+				updateState={() => {}}
+				title="Birthday"
+			/>
 		</CustomModal>
 	);
 };

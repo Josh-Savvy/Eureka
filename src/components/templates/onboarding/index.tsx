@@ -76,6 +76,7 @@ const OnboardingScreenTemplate = ({ navigation }: { navigation: any }) => {
 				}}
 				horizontal
 				showsHorizontalScrollIndicator={false}
+				showsVerticalScrollIndicator={false}
 				decelerationRate="fast"
 				snapToAlignment="center"
 				snapToInterval={width}

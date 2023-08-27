@@ -35,7 +35,7 @@ const OnboardingEditProfileTemplate = ({
 	};
 	const [state, setState] = React.useState<typeof initialState>(initialState);
 	const { email, first_name, image, last_name, phone, DOB } = state;
-	const [openDateModal, setOpenDateModal] = React.useState<boolean>(false);
+	const [openDateModal, setOpenDateModal] = React.useState<boolean>(!false);
 
 	const handleImageUpload = async () => {
 		const permissionResult =

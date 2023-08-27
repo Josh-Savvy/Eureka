@@ -152,8 +152,9 @@ const CustomModal = ({
 						{subheader}
 					</Text>
 					<ScrollView
-						style={{ paddingHorizontal: 5 }}
+						style={{ paddingHorizontal: 5, flex: 1 }}
 						showsVerticalScrollIndicator={false}
+						showsHorizontalScrollIndicator={false}
 						scrollEnabled={!hideScroll}
 					>
 						{children ? (
