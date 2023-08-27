@@ -40,9 +40,11 @@ const CustomDatepicker = ({
 	initialState,
 	updateState,
 	title,
+	maxYear,
 }: {
 	initialState: CustomDatePickerType;
 	updateState: Dispatch<SetStateAction<CustomDatePickerType>>;
+	maxYear?: number;
 	title?: string;
 }) => {
 	const currentDate = new Date();
@@ -88,7 +90,12 @@ const CustomDatepicker = ({
 		if (currentMonthIndex < 11) {
 			setCurrentMonthIndex(currentMonthIndex + 1);
 			setSelectedDay(1);
-		} else {
+		} else if (maxYear) {
+			if (currentYearIndex + 1 <= new Date().getFullYear() + maxYear) {
+				setCurrentMonthIndex(0);
+				setCurrentYearIndex(currentYearIndex + 1);
+			}
+		} else if (currentYearIndex + 1 <= new Date().getFullYear()) {
 			setCurrentMonthIndex(0);
 			setCurrentYearIndex(currentYearIndex + 1);
 		}

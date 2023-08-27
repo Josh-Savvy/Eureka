@@ -12,10 +12,14 @@ export const CalendarModal = ({
 	closeModal,
 	modalIsOpen,
 	handleSaveDate,
+	disableButton,
+	title,
 }: {
 	closeModal: any;
 	modalIsOpen: boolean;
 	handleSaveDate: (state: CustomDatePickerType) => any;
+	disableButton?: boolean;
+	title?: string;
 }) => {
 	const initialState: CustomDatePickerType = {
 		selectedMonth: months[new Date().getMonth()],
@@ -69,11 +73,12 @@ export const CalendarModal = ({
 			hideScroll
 			acceptText="Save"
 			acceptBtnStyle={[tailwind`py-5 rounded-xl`]}
+			disableAcceptBtn={disableButton ? disableButton : false}
 		>
 			<CustomDatepicker
 				initialState={initialState}
 				updateState={setCalendarState}
-				title="Birthday"
+				title={title || ""}
 			/>
 		</CustomModal>
 	);

@@ -201,7 +201,11 @@ const CustomModal = ({
 								width={hideCancelButton ? "100%" : acceptBtnWidth || "60%"}
 								onPress={next}
 								disabled={disableAcceptBtn}
-								buttonContainerStyle={[tailwind`bg-[#E94057]`, acceptBtnStyle]}
+								buttonContainerStyle={[
+									tailwind`bg-[#E94057]`,
+									acceptBtnStyle,
+									{ backgroundColor: disableAcceptBtn ? "#bbb" : "#E94057" },
+								]}
 							/>
 						)}
 					</View>

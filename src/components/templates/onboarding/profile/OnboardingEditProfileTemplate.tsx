@@ -18,8 +18,20 @@ import * as ImagePicker from "expo-image-picker";
 import { CustomInputTwo } from "../../../ui/atoms/common/inputs";
 import { PrimaryButton } from "../../../ui/atoms/common/buttons";
 import CalendarModal from "../../../ui/atoms/modals/CalendarModal";
-import { CustomDatePickerType } from "../../../ui/organisms/common/CustomDatepicker";
+import {
+	CustomDatePickerType,
+	months,
+} from "../../../ui/organisms/common/CustomDatepicker";
 import Toast from "react-native-root-toast";
+
+interface NewUserInteface {
+	email: string;
+	phone: string;
+	first_name: string;
+	last_name: string;
+	image: string;
+	DOB: number | undefined;
+}
 
 const OnboardingEditProfileTemplate = ({
 	navigation,
@@ -36,9 +48,9 @@ const OnboardingEditProfileTemplate = ({
 		first_name: "",
 		last_name: "",
 		image: "",
-		DOB: new Date(),
+		DOB: undefined,
 	};
-	const [state, setState] = React.useState<typeof initialState>(initialState);
+	const [state, setState] = React.useState<NewUserInteface>(initialState);
 	const { email, first_name, image, last_name, phone, DOB } = state;
 	const [openDateModal, setOpenDateModal] = React.useState<boolean>(!false);
 	const handleImageUpload = async () => {
@@ -78,8 +90,16 @@ const OnboardingEditProfileTemplate = ({
 			return;
 		}
 		// !
-		console.log(true);
-
+		setState({
+			...state,
+			DOB: new Date().setFullYear(
+				calendarState.selectedYear,
+				months.indexOf(calendarState.selectedMonth),
+				calendarState.selectedDay,
+			),
+		});
+		setOpenDateModal(false);
+		console.log(calendarState);
 		// if (
 		// 	calendarState &&
 		// 	calendarState.selectedDay !== initialState.selectedDay &&
