@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import InnerScreen from "../../../ui/layouts/InnerScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
 	View,
 	Text,
 	TouchableOpacity,
 	KeyboardAvoidingView,
 	Dimensions,
+	Alert,
 } from "react-native";
 import tw from "twrnc";
 import ThemeContext from "../../../../context/theme.context";
@@ -19,13 +21,11 @@ import {
 import Toast from "react-native-root-toast";
 import OnboardingEditProfileTemplateOne from "./OnboardingEditProfileTemplateOne";
 import OnboardingEditProfileTemplateTwo from "./OnboardingEditProfileTemplateTwo";
-import {
-	GenderEnum,
-	NewUserInteface,
-} from "../../../../interfaces/data/user.type";
+import { NewUserInteface } from "../../../../interfaces/data/user.type";
 import OnboardingEditProfileTemplateThree from "./OnboardingEditProfileTemplateThree";
 import OnboardingEditProfileTemplateFour from "./OnboardingEditProfileTemplateFour";
 import OnboardingEditProfileTemplateFive from "./OnboardingEditProfileTemplateFive";
+import AuthContext from "../../../../context/auth.context";
 
 const OnboardingEditProfileTemplate = ({
 	navigation,
@@ -34,6 +34,7 @@ const OnboardingEditProfileTemplate = ({
 	navigation: any;
 	route: any;
 }) => {
+	const { setIsLoggedIn } = React.useContext(AuthContext);
 	const { theme } = React.useContext(ThemeContext);
 	const initialState: NewUserInteface = {
 		email: "",
@@ -160,11 +161,37 @@ const OnboardingEditProfileTemplate = ({
 					},
 				});
 			}
-		} else {
-			console.log("finished");
+		} else if (currentStep === 4) {
+			
+		} else if (currentStep === 5) {
+			const user = JSON.stringify(state);
+			try {
+				//! Send Save User Data to DB and save
+				//
+				//! then also save to local
+				AsyncStorage.setItem("currentUser", user)
+					.then(() => {
+						console.log("User saved to localstorage");
+						setTimeout(() => {
+							setIsLoggedIn(true);
+						}, 2000);
+					})
+					.catch((error) => {
+						console.error("Error retrieving user data:", error);
+					});
+			} catch (error) {
+				console.log(error);
+				Alert.alert("", "An error occured", [
+					{
+						text: "Okay",
+						isPreferred: true,
+						onPress: () => {
+							console.log("Pressed");
+						},
+					},
+				]);
+			}
 		}
-
-		//navigation.navigate("Signup");
 	};
 
 	return (

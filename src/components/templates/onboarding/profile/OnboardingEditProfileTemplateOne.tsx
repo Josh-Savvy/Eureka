@@ -97,6 +97,7 @@ const OnboardingEditProfileTemplateOne = ({
 					value={first_name}
 					onChangeText={handleChange("first_name")}
 					containerStyle={[tw`rounded-xl border border-zinc-300`]}
+					autoFocus
 				/>
 				<CustomInputTwo
 					label="Last Name"

@@ -21,11 +21,13 @@ import {
 	UserIconPath,
 	UserSecondIconPath,
 } from "../components/ui/atoms/common/icons/svgs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import UserContext from "../context/user.context";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
-	const currentUser = false;
+	const { setUser, user } = React.useContext(UserContext);
 	const { isLoggedIn } = React.useContext(AuthContext);
 
 	return (
@@ -44,7 +46,7 @@ const Navigation = () => {
 						options={{ headerShown: false }}
 					/>
 				</Stack.Navigator>
-			) : currentUser ? (
+			) : user ? (
 				<Stack.Navigator
 					screenOptions={{
 						presentation: "card",

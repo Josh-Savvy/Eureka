@@ -13,3 +13,4 @@ export interface NewUserInteface {
 	interests?: string[];
 	DOB: number | undefined;
 }
+export interface UserType extends NewUserInteface {}
