@@ -1,17 +1,12 @@
 {
   "expo": {
-    "name": "Eureka",
-    "slug": "eureka",
+    "name": "Euphoria",
+    "slug": "euphoria",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/animations/splash.gif",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -20,12 +15,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/images/adaptive-icon.png"
+      },
+      "package": "com.codepriest.euphoria"
     },
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bf47dedf-31f2-4503-941c-3a6cac762268"
+      }
+    },
+    "owner": "codepriest"
   }
 }

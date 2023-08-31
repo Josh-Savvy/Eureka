@@ -73,7 +73,7 @@ const SplashScreenComponent = () => {
 							animatedStyles,
 						]}
 					>
-						Eureka
+						Euphoria
 					</Animated.Text>
 					<ActivityIndicator color="black" size={100} />
 				</Animated.View>

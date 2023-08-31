@@ -52,6 +52,7 @@ export const CalendarModal = ({
 			return;
 		}
 		handleSaveDate(calendarState);
+		closeModal();
 		// if (
 		// 	calendarState &&
 		// 	calendarState.selectedDay !== initialState.selectedDay &&

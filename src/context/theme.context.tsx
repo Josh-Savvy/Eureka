@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ColorValue } from "react-native";
 
 export interface ITheme {
@@ -21,4 +21,5 @@ const ThemeContext = React.createContext<ThemeContextType>({
 	theme: "light",
 	setTheme: (): void => {},
 });
+
 export default ThemeContext;

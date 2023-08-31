@@ -20,6 +20,7 @@ import {
 	PanGestureHandler,
 	State,
 } from "react-native-gesture-handler";
+import Icons from "../common/icons";
 
 const CustomModal = ({
 	closeModal,
@@ -87,6 +88,10 @@ const CustomModal = ({
 	return (
 		<>
 			<View style={[styles().modalBackdrop, StyleSheet.absoluteFill]} />
+			<View style={[styles().modalBackdrop, StyleSheet.absoluteFill]} />
+			<View style={[styles().modalBackdrop, StyleSheet.absoluteFill]} />
+			<View style={[styles().modalBackdrop, StyleSheet.absoluteFill]} />
+
 			<PanGestureHandler
 				onGestureEvent={onGestureEvent}
 				onHandlerStateChange={onHandlerStateChange}
@@ -98,9 +103,22 @@ const CustomModal = ({
 							// backgroundColor: theme.background,
 							backgroundColor: "white",
 							height: height || Dimensions.get("window").height * 0.75,
+							position: "relative",
 						},
 					]}
 				>
+					{/* <View
+						style={{
+							backgroundColor: "#fff",
+							position: "absolute",
+							top: -10,
+							borderWidth: 4,
+							borderBottomEndRadius: 30,
+							transform: [{ rotate: "90deg" }],
+						}}
+					>
+						<Icons.ModalIndicator />
+					</View> */}
 					{!hideHeader ? (
 						<View
 							style={{
@@ -240,7 +258,6 @@ const styles = (props?: { theme?: ITheme; translateY?: any }) => {
 			paddingHorizontal: Dimensions.get("window").width * 0.06,
 			bottom: Dimensions.get("window").height * -0.09,
 			opacity: 0.6,
-
 			backdropFilter: "blur(10px)",
 		},
 		modalContainer: {

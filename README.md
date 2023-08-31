@@ -1,4 +1,4 @@
-# Eureka
+# Euphoria
 
 A simple dating app built on react native.
 
