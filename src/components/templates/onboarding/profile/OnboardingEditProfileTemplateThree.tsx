@@ -55,6 +55,16 @@ const OnboardingEditProfileTemplateThree = ({
 	};
 
 	useEffect(() => {
+		// if (state.interests) {
+		// 	setSelectedInterests(
+		// 		interests.filter(
+		// 			(interest) =>
+		// 				state.interests?.map((interest) => {
+		// 					return interest;
+		// 				}) === interest,
+		// 		),
+		// 	);
+		// }
 		if (selectedInterests) {
 			const uniqueInterests = new Set(
 				selectedInterests.map((interest) => interest.interest),

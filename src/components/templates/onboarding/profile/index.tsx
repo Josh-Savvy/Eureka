@@ -24,6 +24,8 @@ import {
 	NewUserInteface,
 } from "../../../../interfaces/data/user.type";
 import OnboardingEditProfileTemplateThree from "./OnboardingEditProfileTemplateThree";
+import OnboardingEditProfileTemplateFour from "./OnboardingEditProfileTemplateFour";
+import OnboardingEditProfileTemplateFive from "./OnboardingEditProfileTemplateFive";
 
 const OnboardingEditProfileTemplate = ({
 	navigation,
@@ -44,7 +46,7 @@ const OnboardingEditProfileTemplate = ({
 		interests: [],
 	};
 	const [state, setState] = React.useState<NewUserInteface>(initialState);
-	const [currentStep, setCurrentStep] = React.useState<number>(3);
+	const [currentStep, setCurrentStep] = React.useState<number>(5);
 	const [openDateModal, setOpenDateModal] = React.useState<boolean>(false);
 	const ageLimit = 18;
 	const stepsLimit: number = 5;
@@ -169,7 +171,9 @@ const OnboardingEditProfileTemplate = ({
 		<>
 			<InnerScreen
 				navigation={navigation}
-				hideBackIcon={currentStep === 1 ? true : false}
+				hideBackIcon={
+					currentStep === 1 || currentStep === 4 || currentStep === 5 ? true : false
+				}
 				back={() => {
 					if (currentStep > 1) {
 						setCurrentStep((prev) => prev - 1);
@@ -211,6 +215,10 @@ const OnboardingEditProfileTemplate = ({
 								updateState={setState}
 								state={state}
 							/>
+						) : currentStep === 4 ? (
+							<OnboardingEditProfileTemplateFour />
+						) : currentStep === 5 ? (
+							<OnboardingEditProfileTemplateFive />
 						) : (
 							<></>
 						)}
@@ -218,7 +226,15 @@ const OnboardingEditProfileTemplate = ({
 					<PrimaryButton
 						onPress={handleMoveToStep}
 						buttonText={
-							currentStep === 1 ? "Confirm" : currentStep === 2 || 3 ? "Continue" : ""
+							currentStep === 1
+								? "Confirm"
+								: currentStep === 2 || currentStep === 3
+								? "Continue"
+								: currentStep === 4
+								? "Grant access to contact list"
+								: currentStep === 5
+								? "I want to be notified"
+								: "Next"
 						}
 						buttonContainerStyle={[
 							tw`rounded-2xl py-5`,
@@ -234,6 +250,10 @@ const OnboardingEditProfileTemplate = ({
 										: currentStep == 2 && state.gender !== null
 										? curentTheme(theme).primary
 										: currentStep == 3 && state.interests && state.interests?.length > 0
+										? curentTheme(theme).primary
+										: currentStep == 4
+										? curentTheme(theme).primary
+										: currentStep == 5
 										? curentTheme(theme).primary
 										: "#bbb",
 								// marginTop: 5,

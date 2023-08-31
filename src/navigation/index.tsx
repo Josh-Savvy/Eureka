@@ -56,7 +56,7 @@ const Navigation = () => {
 				</Stack.Navigator>
 			) : (
 				<Stack.Navigator
-					initialRouteName="OnboardingEditProfile"
+					initialRouteName="Onboarding"
 					screenOptions={{
 						presentation: "card",
 						headerShown: false,
