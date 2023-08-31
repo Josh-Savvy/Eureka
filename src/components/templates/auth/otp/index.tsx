@@ -56,7 +56,7 @@ const OtpScreenTemplate = ({
 			setLoading(true);
 			console.log(otpValue);
 			// ! If otp is valid, then:
-			next();
+			next ? next() : null;
 		}
 		// else {
 		// 	setError("Invalid OTP!");

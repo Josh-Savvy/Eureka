@@ -46,7 +46,7 @@ const OnboardingEditProfileTemplate = ({
 		interests: [],
 	};
 	const [state, setState] = React.useState<NewUserInteface>(initialState);
-	const [currentStep, setCurrentStep] = React.useState<number>(5);
+	const [currentStep, setCurrentStep] = React.useState<number>(1);
 	const [openDateModal, setOpenDateModal] = React.useState<boolean>(false);
 	const ageLimit = 18;
 	const stepsLimit: number = 5;

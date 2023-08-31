@@ -75,6 +75,9 @@ const OnboardingEditProfileTemplateThree = ({
 				interests: updatedInterests,
 			});
 		}
+		// return () => {
+		// 	setSelectedInterests([]);
+		// };
 	}, [selectedInterests]);
 
 	return (

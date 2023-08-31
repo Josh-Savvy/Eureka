@@ -36,14 +36,14 @@ const OnboardingEditProfileTemplateTwo = ({
 	};
 
 	useEffect(() => {
-		if (state.gender) {
-			const genderKey: keyof typeof GenderEnum =
-				state.gender.toUpperCase() as keyof typeof GenderEnum;
-			const genderEnumValue = GenderEnum[genderKey];
-			if (genderEnumValue) {
-				setSelectedGender(genderEnumValue);
-			}
-		}
+		// if (state.gender) {
+		// 	const genderKey: keyof typeof GenderEnum =
+		// 		state.gender.toUpperCase() as keyof typeof GenderEnum;
+		// 	const genderEnumValue = GenderEnum[genderKey];
+		// 	if (genderEnumValue) {
+		// 		setSelectedGender(genderEnumValue);
+		// 	}
+		// }
 		if (selectedGender !== null) {
 			updateState({ ...state, gender: selectedGender });
 		}

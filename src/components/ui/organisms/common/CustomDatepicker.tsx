@@ -161,7 +161,7 @@ const CustomDatepicker = ({
 				</TouchableOpacity>
 			</View>
 			<ScrollView
-				style={{ marginTop: showYear ? 30 : 0, zIndex: 30, position: "relative" }}
+				style={{ marginTop: showYear ? 30 : 0, zIndex: 50, position: "relative" }}
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}
 				horizontal
